@@ -7,7 +7,7 @@ function whistle(){try{const c=ac(),o=c.createOscillator(),g=c.createGain();o.co
 function kick(){try{const c=ac(),o=c.createOscillator(),g=c.createGain();o.type='sine';o.connect(g);g.connect(c.destination);o.frequency.setValueAtTime(150,c.currentTime);o.frequency.exponentialRampToValueAtTime(0.001,c.currentTime+.3);g.gain.setValueAtTime(.12,c.currentTime);g.gain.exponentialRampToValueAtTime(.001,c.currentTime+.3);o.start();o.stop(c.currentTime+.35)}catch(e){}}
 
 /* ══════════════════════════════════════════
-   ANIMATED GRASS BLADES
+   MINI GRASS — tiny blades all over field
 ══════════════════════════════════════════ */
 const GC = document.getElementById('canvas-grass');
 const gc = GC.getContext('2d');
@@ -19,23 +19,24 @@ let blades = [];
 
 function initGrass(){
   blades = [];
-  const cols = Math.floor(GW / 14);
-  const rows = 3;
+  // Cover entire screen in a grid of tiny blades
+  const spacing = 18;
+  const cols = Math.ceil(GW / spacing) + 2;
+  const rows = Math.ceil(GH / spacing) + 2;
   for(let row=0; row<rows; row++){
-    const y = GH * (0.88 + row * 0.06);
-    for(let i=0; i<cols*2; i++){
+    for(let col=0; col<cols; col++){
       blades.push({
-        x: (i / (cols*2)) * GW + (Math.random()-0.5)*8,
-        baseY: y + Math.random()*20,
-        h: Math.random()*28+12,
-        w: Math.random()*2.5+1,
+        x: col * spacing + (Math.random()-0.5)*10,
+        baseY: row * spacing + (Math.random()-0.5)*10,
+        h: Math.random()*7+3,        // tiny: 3-10px tall
+        w: Math.random()*.9+.4,      // thin
         phase: Math.random()*Math.PI*2,
-        spd: Math.random()*.025+.012,
-        swing: Math.random()*.22+.1,
-        hue: 100+Math.floor(Math.random()*30),
-        sat: 40+Math.floor(Math.random()*30),
-        lit: 20+Math.floor(Math.random()*18),
-        alpha: Math.random()*.45+.2,
+        spd: Math.random()*.02+.008,
+        swing: Math.random()*.18+.06,
+        hue: 105+Math.floor(Math.random()*25),
+        sat: 35+Math.floor(Math.random()*25),
+        lit: 15+Math.floor(Math.random()*15),
+        alpha: Math.random()*.18+.06,
       });
     }
   }
@@ -83,29 +84,23 @@ let t=0;
 function loop(){
   t += 0.016;
 
-  /* GRASS */
+  /* MINI GRASS all over field */
   gc.clearRect(0,0,GW,GH);
   blades.forEach(b=>{
-    const sway = Math.sin(b.phase + t * b.spd * 60) * b.swing;
-    // wind ripple based on position
-    const windPhase = (b.x/GW)*Math.PI*4;
-    const wind = Math.sin(windPhase + t*0.8) * 0.15;
-    const totalSway = sway + wind;
+    const windPhase = (b.x/GW)*Math.PI*6;
+    const wind = Math.sin(windPhase + t*0.9) * 0.12;
+    const sway = Math.sin(b.phase + t * b.spd * 60) * b.swing + wind;
+    const tipX = b.x + sway * b.h;
+    const tipY = b.baseY - b.h;
 
     gc.beginPath();
     gc.moveTo(b.x, b.baseY);
-    // cubic bezier for natural curve
-    gc.bezierCurveTo(
-      b.x + totalSway * b.h * 0.4, b.baseY - b.h * 0.4,
-      b.x + totalSway * b.h * 0.8, b.baseY - b.h * 0.8,
-      b.x + totalSway * b.h,       b.baseY - b.h
+    gc.quadraticCurveTo(
+      b.x + sway * b.h * 0.5, b.baseY - b.h * 0.6,
+      tipX, tipY
     );
-    const grad = gc.createLinearGradient(b.x, b.baseY, b.x + totalSway*b.h, b.baseY - b.h);
-    grad.addColorStop(0, `hsla(${b.hue},${b.sat}%,${b.lit}%,${b.alpha})`);
-    grad.addColorStop(0.6, `hsla(${b.hue+8},${b.sat+15}%,${b.lit+12}%,${b.alpha*0.7})`);
-    grad.addColorStop(1, `hsla(${b.hue+15},${b.sat+20}%,${b.lit+20}%,${b.alpha*0.3})`);
-    gc.strokeStyle = grad;
-    gc.lineWidth = b.w * (0.85 + 0.15*Math.abs(Math.sin(b.tw)));
+    gc.strokeStyle = `hsla(${b.hue},${b.sat}%,${b.lit+8}%,${b.alpha})`;
+    gc.lineWidth = b.w;
     gc.lineCap = 'round';
     gc.stroke();
   });
