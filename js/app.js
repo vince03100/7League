@@ -36,7 +36,7 @@ class Particle{
       cx.fillStyle=`rgba(255,255,255,${this.alpha*.6})`;cx.fill();
     } else {
       cx.beginPath();cx.arc(this.x,this.y,this.r,0,Math.PI*2);
-      cx.fillStyle=`rgba(74,175,80,${this.alpha*(`.7+.3*Math.sin(this.tw))})`;cx.fill();
+      const ga=this.alpha*(0.7+0.3*Math.sin(this.tw));cx.fillStyle=`rgba(74,175,80,${ga})`;cx.fill();
     }
   }
 }
