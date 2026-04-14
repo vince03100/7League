@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>7 League Mirandola — Torneo 2026</title>
+  <meta name="description" content="Torneo 7 League Mirandola — 1/8 Luglio 2026"/>
+  <meta name="theme-color" content="#0a1f0e"/>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+</head>
+<body>
+
+  <!-- LOADER -->
+  <div id="loader">
+    <div class="loader-ring"></div>
+    <div class="loader-ring"></div>
+    <div class="loader-ring"></div>
+    <img src="assets/logo.png" alt="7 League Mirandola" class="loader-logo"/>
+    <div class="loader-bar-wrap"><div class="loader-bar"></div></div>
+    <div class="loader-txt">⚽ Preparando il campo...</div>
+  </div>
+
+  <!-- FIELD BG + CANVAS -->
+  <div id="field-bg"></div>
+  <canvas id="canvas-field"></canvas>
+
+  <!-- NAVBAR -->
+  <nav id="navbar">
+    <a href="#hero" class="nav-logo">
+      <img src="assets/logo.png" alt="7 League Mirandola"/>
+    </a>
+    <div class="navbar-line"></div>
+    <ul class="nav-links">
+      <li><a href="#gironi">Gironi</a></li>
+      <li><a href="#giornate">Giornate</a></li>
+      <li><a href="#playoff">Playoff</a></li>
+      <li><a href="#marcatori">Marcatori</a></li>
+      <li><a href="#sponsor">Sponsor</a></li>
+    </ul>
+    <div class="nav-badge">1 — 8 LUG 2026</div>
+    <button class="nav-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-field-circle"></div>
+    <div class="hero-center-spot"></div>
+
+    <div class="hero-content">
+      <div class="hero-logo-wrap">
+        <div class="hero-logo-glow"></div>
+        <img src="assets/logo.png" alt="7 League Mirandola" class="hero-logo"/>
+      </div>
+
+      <p class="hero-subtitle">1 – 8 Luglio 2026 &nbsp;·&nbsp; Mirandola</p>
+      <p class="hero-venue">📍 Centro Polivalente Bocciofila &nbsp;·&nbsp; Via Circonvallazione, n.19</p>
+
+      <div class="hero-stats">
+        <div class="hero-stat"><div class="n" data-target="12">0</div><div class="l">Squadre</div></div>
+        <div class="stat-div"></div>
+        <div class="hero-stat"><div class="n" data-target="4">0</div><div class="l">Gironi</div></div>
+        <div class="stat-div"></div>
+        <div class="hero-stat"><div class="n" data-target="8">0</div><div class="l">Giorni</div></div>
+        <div class="stat-div"></div>
+        <div class="hero-stat"><div class="n" data-target="20">0</div><div class="l">Partite</div></div>
+      </div>
+
+      <div class="hero-ctas">
+        <a href="#gironi"    class="btn btn-primary">⚽ Classifiche</a>
+        <a href="#playoff"   class="btn btn-gold">🏆 Playoff</a>
+        <a href="#marcatori" class="btn btn-outline">🥇 Marcatori</a>
+      </div>
+    </div>
+
+    <div class="hero-scroll"><div class="scroll-line"></div><span>Scorri</span></div>
+
+    <div class="hero-wave">
+      <svg viewBox="0 0 1440 80" preserveAspectRatio="none" fill="rgba(10,31,14,0.9)">
+        <path d="M0,40 C240,80 480,0 720,40 C960,80 1200,0 1440,40 L1440,80 L0,80 Z"/>
+        <path d="M0,40 C240,80 480,0 720,40 C960,80 1200,0 1440,40 L1440,80 L0,80 Z" transform="translate(720,0)"/>
+      </svg>
+      <svg viewBox="0 0 1440 80" preserveAspectRatio="none" fill="rgba(18,40,24,0.7)">
+        <path d="M0,55 C360,10 720,75 1080,30 C1260,10 1380,50 1440,55 L1440,80 L0,80 Z"/>
+        <path d="M0,55 C360,10 720,75 1080,30 C1260,10 1380,50 1440,55 L1440,80 L0,80 Z" transform="translate(720,0)"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- COUNTDOWN -->
+  <section id="countdown-section">
+    <div class="countdown-label">⚽ Conto alla rovescia ⚽</div>
+    <div class="countdown-sublabel">Al via del 7 League · 1 Luglio 2026</div>
+    <div class="countdown-grid" id="cd-grid">
+      <div class="cd-unit"><div class="cd-box"><div class="cd-number" id="cd-days">00</div><div class="cd-label">Giorni</div></div></div>
+      <div class="cd-sep">:</div>
+      <div class="cd-unit"><div class="cd-box"><div class="cd-number" id="cd-hours">00</div><div class="cd-label">Ore</div></div></div>
+      <div class="cd-sep">:</div>
+      <div class="cd-unit"><div class="cd-box"><div class="cd-number" id="cd-minutes">00</div><div class="cd-label">Minuti</div></div></div>
+      <div class="cd-sep">:</div>
+      <div class="cd-unit"><div class="cd-box"><div class="cd-number" id="cd-seconds">00</div><div class="cd-label">Secondi</div></div></div>
+    </div>
+    <div class="cd-finished" id="cd-finished" style="display:none">🏆 Il torneo è iniziato! Forza ragazzi! ⚽</div>
+  </section>
+
+  <!-- GIRONI -->
+  <section id="gironi">
+    <div class="section-header">
+      <div class="section-tag">⚽ Fase a gruppi</div>
+      <h2 class="section-title">GIRONI</h2>
+      <p class="section-desc">4 gironi da 3 squadre. Le prime 2 di ogni girone accedono ai quarti.</p>
+    </div>
+    <div class="gironi-filter">
+      <button class="filter-btn active" data-grp="all">Tutti</button>
+      <button class="filter-btn" data-grp="A">Girone A</button>
+      <button class="filter-btn" data-grp="B">Girone B</button>
+      <button class="filter-btn" data-grp="C">Girone C</button>
+      <button class="filter-btn" data-grp="D">Girone D</button>
+    </div>
+    <div class="groups-grid" id="groups-container"></div>
+  </section>
+
+  <!-- GIORNATE -->
+  <section id="giornate">
+    <div class="section-header">
+      <div class="section-tag">📋 Risultati</div>
+      <h2 class="section-title">GIORNATE</h2>
+      <p class="section-desc">Tutti i risultati e le prossime partite.</p>
+    </div>
+    <div class="matches-wrapper">
+      <div id="giornate-list"></div>
+      <div id="prossime-list"></div>
+    </div>
+  </section>
+
+  <!-- PLAYOFF -->
+  <section id="playoff">
+    <div class="section-header">
+      <div class="section-tag gold">🏆 Eliminazione diretta</div>
+      <h2 class="section-title gold-title">PLAYOFF</h2>
+      <p class="section-desc">Quarti, semifinali e grande finale.</p>
+    </div>
+    <div class="bracket-wrap" id="playoff-content"></div>
+  </section>
+
+  <!-- MARCATORI -->
+  <section id="marcatori">
+    <div class="section-header">
+      <div class="section-tag gold">🥇 Classifica</div>
+      <h2 class="section-title gold-title">MARCATORI</h2>
+      <p class="section-desc">I migliori cannonieri del torneo.</p>
+    </div>
+    <div class="marcatori-wrap">
+      <table class="marcatori-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Giocatore</th>
+            <th>Squadra</th>
+            <th style="text-align:center">Gol</th>
+          </tr>
+        </thead>
+        <tbody id="marcatori-list"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- SPONSOR -->
+  <section id="sponsor">
+    <div class="section-header">
+      <div class="section-tag gold">⭐ Partner</div>
+      <h2 class="section-title gold-title">SPONSOR</h2>
+      <p class="section-desc">Grazie a chi rende possibile il 7 League 2026.</p>
+    </div>
+    <div class="sponsor-grid">
+      <div class="sponsor-card sponsor-main">
+        <div class="sponsor-tier">🥇 Main Sponsor</div>
+        <div class="sponsor-logo-ph">LOGO QUI</div>
+        <div class="sponsor-name">Nome Sponsor</div>
+      </div>
+      <div class="sponsor-card">
+        <div class="sponsor-tier">🥈 Sponsor</div>
+        <div class="sponsor-logo-ph">LOGO</div>
+        <div class="sponsor-name">Nome Sponsor</div>
+      </div>
+      <div class="sponsor-card">
+        <div class="sponsor-tier">🥈 Sponsor</div>
+        <div class="sponsor-logo-ph">LOGO</div>
+        <div class="sponsor-name">Nome Sponsor</div>
+      </div>
+      <div class="sponsor-card">
+        <div class="sponsor-tier">🥉 Supporter</div>
+        <div class="sponsor-logo-ph">LOGO</div>
+        <div class="sponsor-name">Nome Sponsor</div>
+      </div>
+    </div>
+    <p class="sponsor-cta">Vuoi diventare sponsor? <strong style="color:var(--green-neon)">Contattaci!</strong></p>
+  </section>
+
+  <!-- FOOTER -->
+  <footer id="footer">
+    <img src="assets/logo.png" alt="7 League Mirandola" class="footer-logo"/>
+    <p class="footer-sub">Torneo di Calcio &nbsp;·&nbsp; Mirandola, 1-8 Luglio 2026</p>
+    <p class="footer-venue">📍 Centro Polivalente Bocciofila, Via Circonvallazione n.19</p>
+    <p class="footer-copy">⚽ Buon torneo a tutti! &nbsp;·&nbsp; <strong style="color:var(--gold)">7 League Mirandola</strong></p>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
